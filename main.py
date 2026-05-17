@@ -3,11 +3,13 @@ CLI principal del conector de búsqueda + agente de noticias IA.
 
 Uso:
     python main.py search "tu consulta"   → busca y resume
-    python main.py news                   → genera informe mensual
-    python main.py schedule               → modo automático (día 1 de cada mes)
+    python main.py news                   → genera informe semanal + posts LinkedIn
+    python main.py posts                  → muestra los últimos posts generados
+    python main.py schedule               → modo automático semanal (lunes 8:00)
 """
 
 import argparse
+import json
 import os
 import sys
 from pathlib import Path
@@ -33,9 +35,31 @@ def cmd_search(query: str):
 def cmd_news():
     from news_agent import AINewsAgent
     agente = AINewsAgent()
-    ruta = agente.run_monthly_report()
-    if ruta:
-        print(f"\nInforme disponible en: {ruta}")
+    resultado = agente.run_weekly_report()
+    if resultado:
+        print(f"\nInforme: {resultado.get('informe', '')}")
+        print(f"Posts:   {resultado.get('posts', '')}")
+        print("\nPide a Claude Code: 'crea el borrador de email con los últimos posts'")
+
+
+def cmd_posts():
+    from news_agent import AINewsAgent
+    agente = AINewsAgent()
+    datos = agente.get_latest_posts()
+
+    if not datos:
+        print("No hay posts generados todavía. Ejecuta primero: python main.py news")
+        return
+
+    print(f"\n{'=' * 60}")
+    print(f"Posts generados el {datos.get('generado_el', '?')} | Semana {datos.get('semana', '?')}")
+    print(f"{'=' * 60}")
+
+    print(f"\n--- POST #1: {datos['post_1']['titulo']} ---\n")
+    print(datos["post_1"]["contenido"])
+
+    print(f"\n--- POST #2: {datos['post_2']['titulo']} ---\n")
+    print(datos["post_2"]["contenido"])
 
 
 def cmd_schedule():
@@ -50,15 +74,15 @@ def cmd_schedule():
     from news_agent import AINewsAgent
 
     def ejecutar_informe():
-        print(f"\n[{datetime.now().strftime('%d/%m/%Y %H:%M')}] Ejecutando informe mensual...")
+        print(f"\n[{datetime.now().strftime('%d/%m/%Y %H:%M')}] Ejecutando informe semanal...")
         agente = AINewsAgent()
-        agente.run_monthly_report()
+        agente.run_weekly_report()
 
-    # Ejecutar el día 1 de cada mes a las 8:00
-    schedule.every().month.at("08:00").do(ejecutar_informe)
+    # Ejecutar cada lunes a las 8:00
+    schedule.every().monday.at("08:00").do(ejecutar_informe)
 
     proxima = schedule.next_run()
-    print(f"Modo automático activado.")
+    print("Modo automático semanal activado (cada lunes a las 08:00).")
     print(f"Próxima ejecución: {proxima.strftime('%d/%m/%Y a las %H:%M')}")
     print("Presiona Ctrl+C para detener.\n")
 
@@ -73,22 +97,20 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Ejemplos:
-  python main.py search "últimas noticias sobre ChatGPT"
+  python main.py search "últimas noticias sobre GPT-5"
   python main.py news
+  python main.py posts
   python main.py schedule
         """,
     )
     subparsers = parser.add_subparsers(dest="comando", required=True)
 
-    # Subcomando: search
     p_search = subparsers.add_parser("search", help="Busca y resume una consulta")
     p_search.add_argument("query", help="Consulta de búsqueda")
 
-    # Subcomando: news
-    subparsers.add_parser("news", help="Genera informe mensual de noticias de IA")
-
-    # Subcomando: schedule
-    subparsers.add_parser("schedule", help="Activa el modo automático mensual")
+    subparsers.add_parser("news", help="Genera informe semanal de noticias de IA + posts LinkedIn")
+    subparsers.add_parser("posts", help="Muestra los últimos posts de LinkedIn generados")
+    subparsers.add_parser("schedule", help="Activa el modo automático semanal (lunes 08:00)")
 
     args = parser.parse_args()
 
@@ -102,6 +124,8 @@ Ejemplos:
         cmd_search(args.query)
     elif args.comando == "news":
         cmd_news()
+    elif args.comando == "posts":
+        cmd_posts()
     elif args.comando == "schedule":
         cmd_schedule()
 
