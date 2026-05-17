@@ -1,0 +1,10 @@
+# Credenciales — nunca subir al repo
+.mcp.json
+routines/.env
+
+# Entorno virtual Python
+.venv/
+
+# Reportes generados (opcionales, descomenta si no quieres subirlos)
+# routines/reports/*.md
+# routines/reports/*.json

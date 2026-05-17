@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "notebooklm": {
+      "command": "npx",
+      "args": ["-y", "notebooklm-mcp"],
+      "env": {
+        "GOOGLE_EMAIL": "TU_EMAIL@gmail.com",
+        "GOOGLE_PASSWORD": "TU_CONTRASEÑA_DE_GOOGLE"
+      }
+    }
+  }
+}
