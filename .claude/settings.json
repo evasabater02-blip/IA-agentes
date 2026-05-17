@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"\nimport json, sys\nfrom pathlib import Path\nfrom datetime import datetime\n\nposts_file = Path('/home/user/IA-agentes/routines/reports/posts_latest.json')\nif not posts_file.exists():\n    msg = 'Aún no has generado el informe semanal de IA. Escribe /weekly-news para generarlo.'\n    print(json.dumps({'systemMessage': msg}))\n    sys.exit(0)\n\ndata = json.loads(posts_file.read_text())\ngenerated = data.get('generado_el', '')\nweek = data.get('semana', '')\ncurrent_week = datetime.now().strftime('%Y-W%W')\n\nif week != current_week:\n    msg = f'El informe de IA es de la semana {week}. La semana actual es {current_week}. Escribe /weekly-news para actualizarlo.'\n    print(json.dumps({'systemMessage': msg}))\nelse:\n    sys.exit(0)\n\" 2>/dev/null || true",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
