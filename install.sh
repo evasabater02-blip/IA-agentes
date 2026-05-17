@@ -1,8 +1,11 @@
 #!/bin/bash
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROUTINES_DIR="$SCRIPT_DIR/routines"
+
 echo "======================================"
-echo "  Instalando Conector de Búsqueda IA"
+echo "  Instalando Agente Semanal de IA"
 echo "======================================"
 
 # Verificar Python 3.8+
@@ -19,32 +22,32 @@ fi
 
 echo "✓ Python $(python3 --version) detectado"
 
-# Crear entorno virtual
-if [ ! -d ".venv" ]; then
+# Crear entorno virtual en la raíz del proyecto
+if [ ! -d "$SCRIPT_DIR/.venv" ]; then
     echo "→ Creando entorno virtual..."
-    python3 -m venv .venv
+    python3 -m venv "$SCRIPT_DIR/.venv"
     echo "✓ Entorno virtual creado en .venv/"
 else
     echo "✓ Entorno virtual ya existe"
 fi
 
-# Activar entorno e instalar dependencias
+# Instalar dependencias desde routines/requirements.txt
 echo "→ Instalando dependencias..."
-.venv/bin/pip install --quiet --upgrade pip
-.venv/bin/pip install --quiet -r requirements.txt
+"$SCRIPT_DIR/.venv/bin/pip" install --quiet --upgrade pip
+"$SCRIPT_DIR/.venv/bin/pip" install --quiet -r "$ROUTINES_DIR/requirements.txt"
 echo "✓ Dependencias instaladas"
 
-# Copiar .env si no existe
-if [ ! -f ".env" ]; then
-    cp .env.example .env
-    echo "✓ Archivo .env creado (edítalo con tu API key)"
+# Copiar .env si no existe (en routines/)
+if [ ! -f "$ROUTINES_DIR/.env" ]; then
+    cp "$ROUTINES_DIR/.env.example" "$ROUTINES_DIR/.env"
+    echo "✓ Archivo routines/.env creado (edítalo con tu API key)"
 else
-    echo "✓ Archivo .env ya existe"
+    echo "✓ Archivo routines/.env ya existe"
 fi
 
 # Crear directorio de informes
-mkdir -p reports
-echo "✓ Directorio reports/ listo"
+mkdir -p "$ROUTINES_DIR/reports"
+echo "✓ Directorio routines/reports/ listo"
 
 echo ""
 echo "======================================"
@@ -53,18 +56,18 @@ echo "======================================"
 echo ""
 echo "PRÓXIMOS PASOS:"
 echo ""
-echo "1. Edita .env y añade tu ANTHROPIC_API_KEY:"
-echo "   nano .env"
+echo "1. Añade tu ANTHROPIC_API_KEY en routines/.env:"
+echo "   nano routines/.env"
 echo ""
 echo "2. Activa el entorno virtual:"
 echo "   source .venv/bin/activate"
 echo ""
 echo "3. Prueba una búsqueda:"
-echo "   python main.py search \"noticias IA 2026\""
+echo "   cd routines && python main.py search \"noticias IA 2026\""
 echo ""
-echo "4. Genera un informe mensual:"
-echo "   python main.py news"
+echo "4. Genera el informe semanal + posts LinkedIn:"
+echo "   cd routines && python main.py news"
 echo ""
-echo "Para cron automático mensual, añade a crontab:"
-echo "   0 8 1 * * cd $(pwd) && .venv/bin/python main.py news"
+echo "Cron automático (cada lunes 08:00):"
+echo "   0 8 * * 1 cd $ROUTINES_DIR && $SCRIPT_DIR/.venv/bin/python main.py news"
 echo ""

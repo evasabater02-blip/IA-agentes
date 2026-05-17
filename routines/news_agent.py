@@ -13,7 +13,6 @@ from ai_summarizer import AISummarizer
 from linkedin_generator import LinkedInGenerator
 
 
-# Queries para el informe semanal de noticias de IA
 QUERIES_NOTICIAS_IA = [
     "inteligencia artificial noticias semana",
     "AI news this week",
@@ -22,7 +21,9 @@ QUERIES_NOTICIAS_IA = [
     "IA empresas tecnología novedades",
 ]
 
-DIRECTORIO_INFORMES = Path("reports")
+# Paths relativos al directorio del script, no al directorio de ejecución
+DIRECTORIO_BASE = Path(__file__).parent
+DIRECTORIO_INFORMES = DIRECTORIO_BASE / "reports"
 ARCHIVO_POSTS_LATEST = DIRECTORIO_INFORMES / "posts_latest.json"
 
 
@@ -41,11 +42,10 @@ class AINewsAgent:
         1. Busca noticias de IA de la última semana.
         2. Deduplica y resume con Claude.
         3. Genera 2 posts de LinkedIn con enfoques distintos.
-        4. Guarda el informe y los posts en reports/.
-        5. Retorna rutas de los archivos generados.
+        4. Guarda el informe y los posts en routines/reports/.
 
         Returns:
-            Dict con 'informe', 'posts' (rutas) y el contenido de los posts.
+            Dict con rutas de los archivos generados y contenido de los posts.
         """
         print("\n" + "=" * 60)
         print("   GENERANDO INFORME SEMANAL DE NOTICIAS IA")
@@ -74,7 +74,6 @@ class AINewsAgent:
         print("\n→ Generando informe con Claude...")
         informe = self.resumidor.summarize_news_batch(todos_los_resultados)
 
-        # Guardar informe semanal
         semana = datetime.now().strftime("%Y-W%W")
         nombre_informe = DIRECTORIO_INFORMES / f"informe_IA_{semana}.md"
         encabezado = (
@@ -86,11 +85,9 @@ class AINewsAgent:
             f.write(encabezado + informe)
         print(f"\n✓ Informe guardado en: {nombre_informe}")
 
-        # Generar posts de LinkedIn
         print("\n→ Generando posts de LinkedIn...")
         posts = self.linkedin.generar_dos_posts(informe)
 
-        # Guardar posts (siempre como latest + versión con fecha)
         nombre_posts = DIRECTORIO_INFORMES / f"posts_IA_{semana}.json"
         datos_posts = {
             "generado_el": datetime.now().strftime("%d/%m/%Y a las %H:%M"),
@@ -109,14 +106,13 @@ class AINewsAgent:
         with open(nombre_posts, "w", encoding="utf-8") as f:
             json.dump(datos_posts, f, ensure_ascii=False, indent=2)
 
-        # Sobrescribir latest para acceso rápido
         with open(ARCHIVO_POSTS_LATEST, "w", encoding="utf-8") as f:
             json.dump(datos_posts, f, ensure_ascii=False, indent=2)
 
         print(f"✓ Posts guardados en: {nombre_posts}")
         print(f"✓ Posts (latest) en: {ARCHIVO_POSTS_LATEST}")
         print("=" * 60)
-        print("\nPosts listos. Pide a Claude Code que cree el borrador de email.")
+        print("\nPosts listos. Pide a Claude Code: 'crea el borrador de email con los últimos posts'")
 
         return {
             "informe": str(nombre_informe),
@@ -125,7 +121,7 @@ class AINewsAgent:
         }
 
     def get_latest_posts(self) -> dict:
-        """Lee los últimos posts generados desde reports/posts_latest.json."""
+        """Lee los últimos posts generados desde routines/reports/posts_latest.json."""
         if not ARCHIVO_POSTS_LATEST.exists():
             return {}
         with open(ARCHIVO_POSTS_LATEST, encoding="utf-8") as f:
