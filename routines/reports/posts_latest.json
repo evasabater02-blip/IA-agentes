@@ -1,0 +1,12 @@
+{
+  "generado_el": "19/10/2026 a las 07:22",
+  "semana": "2026-W43",
+  "post_1": {
+    "titulo": "Meta vuelve a la frontera de la IA con Muse Wonder",
+    "contenido": "Meta acaba de volver a la carrera por la frontera de la IA. Y lo ha hecho con ruido.\n\nEl 12 de octubre presentó Muse Wonder y Muse Wonder Full, tras 14 meses de reconstrucción de su equipo de IA bajo Alexandr Wang. Según los datos de la propia Meta, Wonder Full rinde casi como el modelo más avanzado de Anthropic.\n\nLo que me parece clave:\n\n→ Meta no solo compite en modelos cerrados: días después liberó Muse Spark Open, la versión de pesos abiertos.\n→ OpenAI respondió bajando un 80 % el precio de GPT-5.6 Luna.\n→ Google ha metido un agente en Gmail, Drive, Docs y Calendar.\n→ Solo en octubre ya se cuentan unos 20 modelos nuevos de 16 proveedores.\n\nOjo: gran parte de las cifras de rendimiento son autodeclaradas. Conviene esperar a evaluaciones independientes antes de sacar conclusiones.\n\nLo que sí es evidente: la ventaja ya no es tener un buen modelo, sino qué haces con él y a qué precio.\n\n¿Qué pesa más en tu empresa a la hora de elegir un modelo: rendimiento, precio o que sea abierto?\n\n#InteligenciaArtificial #Meta #LLM #IA #Innovacion"
+  },
+  "post_2": {
+    "titulo": "Precios a la baja y agentes: lo práctico de la semana",
+    "contenido": "Un modelo frontier hoy cuesta hasta un 80 % menos que hace unas semanas. ¿Qué cambia para tu negocio?\n\nMientras los titulares hablan de Meta y sus nuevos modelos, lo realmente práctico de esta semana está en otro sitio: los precios y los agentes.\n\nOpenAI ha recortado GPT-5.6 Luna un 80 % y Terra un 20 %. ChatGPT ya puede leer y actuar en tus pestañas de Chrome. Google lanzó un agente que trabaja a través de Gmail, Drive, Docs y Calendar. Y Claude Code permite ejecutar varios agentes en paralelo.\n\nImplicaciones prácticas:\n\n• Automatizaciones que antes no salían a cuenta ahora sí: atención al cliente, informes, conciliaciones.\n• El coste deja de ser excusa; el cuello de botella pasa a ser el proceso y los datos.\n• Con tantos modelos entre los que elegir, conviene no atarse a un solo proveedor.\n• Cuantos más permisos tiene un agente, más importante es definir qué puede tocar y qué no.\n\nMi recomendación: elige un proceso repetitivo de tu equipo y pruébalo esta semana con un agente, midiendo tiempo ahorrado.\n\n¿Qué proceso automatizarías primero? Cuéntamelo en comentarios.\n\n#IAenLaEmpresa #Automatizacion #AgentesIA #Productividad #TransformacionDigital"
+  }
+}
