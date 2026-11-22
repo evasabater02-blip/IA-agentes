@@ -1,0 +1,12 @@
+{
+  "generado_el": "22/11/2026 a las 07:15",
+  "semana": "2026-W47",
+  "post_1": {
+    "titulo": "OpenAI lanza GPT-6.2 Astra y Sol: IA profesional más barata de ejecutar",
+    "contenido": "OpenAI acaba de hacer que la IA de nivel profesional sea más barata de ejecutar. 💡\n\nEl 18 de noviembre presentó GPT-6.2 Astra y Sol, dos modelos pensados para trabajo profesional que, según se informa, reducen el cómputo necesario para tareas complejas.\n\nLo que me parece clave:\n\n🔹 La carrera ya no va solo de ser más potente, sino de ser más eficiente por tarea.\n\n🔹 Menos coste de cómputo significa que casos de uso antes inviables empiezan a salir las cuentas.\n\n🔹 Microsoft sigue construyendo alternativas más baratas: la presión sobre los precios no va a parar.\n\n🔹 En paralelo, Anthropic se prepara para su salida a bolsa: el sector entra en una nueva fase financiera.\n\nPara las empresas, el mensaje es claro: el coste deja de ser la excusa para no probar. El reto pasa a ser saber en qué procesos aplicarlo y cómo medir el retorno.\n\nY tú, ¿qué proceso de tu equipo automatizarías primero si el coste se redujera a la mitad? 👇\n\n#InteligenciaArtificial #OpenAI #LLM #Innovación #TransformaciónDigital"
+  },
+  "post_2": {
+    "titulo": "Implicaciones prácticas: seguridad y gobernanza, la otra noticia de la semana",
+    "contenido": "¿Y si la noticia de la semana no es un modelo nuevo, sino un fallo de seguridad? 🔐\n\nMientras todos miran los lanzamientos, pasaron cosas que afectan más a tu día a día:\n\n▪️ Cursor confirmó una intrusión en su plataforma. Las herramientas de IA para desarrolladores también son superficie de ataque.\n\n▪️ Meta pausó indefinidamente sus nuevos términos que permitían hacer scraping de webs de cuentas Business.\n\n▪️ El Tesoro de EE. UU. pidió explicaciones a Nvidia sobre sus chips y China: la geopolítica ya condiciona qué IA puedes usar.\n\n▪️ En machine learning, la tendencia 2026 es práctica: eficiencia, supervisión y puesta en producción, más que escala.\n\nLa implicación: adoptar IA sin gobernanza es acumular riesgo. Solo alrededor del 1 % de las empresas se considera plenamente madura en IA, y la diferencia suele estar en la seguridad y los procesos, no en el modelo.\n\nAcción concreta para esta semana: haz una lista de las herramientas de IA que usa tu equipo, qué datos comparten y quién las aprobó. Si no la tienes, ya sabes por dónde empezar.\n\n¿Cuántas herramientas de IA se usan en tu empresa sin que nadie las haya revisado?\n\n#IA #Ciberseguridad #GobernanzaIA #MachineLearning #Empresas"
+  }
+}
